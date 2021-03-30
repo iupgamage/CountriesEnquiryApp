@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CountriesEnquiryApp.BAL\CountriesEnquiryApp.BAL.csproj" />
+    <ProjectReference Include="..\CountriesEnquiryApp.Common\CountriesEnquiryApp.Common.csproj" />
+    <ProjectReference Include="..\CountriesEnquiryApp.DAL\CountriesEnquiryApp.DAL.csproj" />
+    <ProjectReference Include="..\CountriesEnquiryApp.Messaging\CountriesEnquiryApp.Messaging.csproj" />
+  </ItemGroup>
+
+
+</Project>
