@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CountriesEnquiryApp.Messaging.Interfaces
 {
-    interface IServiceBusMessageSender
+    public interface IServiceBusMessageSender
     {
         Task SendMessageAsync(CountryDto countryDto);
     }

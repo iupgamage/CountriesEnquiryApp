@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CountriesEnquiryApp.BAL.Interfaces;
 using CountriesEnquiryApp.BAL.Services;
 using CountriesEnquiryApp.Common.Models;
 using Microsoft.AspNetCore.Http;
@@ -13,9 +14,9 @@ namespace CountriesEnquiryApp.API.Controllers
     [ApiController]
     public class EnquiriesController : ControllerBase
     {
-        private readonly EnquiriesBusinessService _enquiriesBusinessService;
+        private readonly IEnquiriesBusinessService _enquiriesBusinessService;
 
-        public EnquiriesController(EnquiriesBusinessService enquiriesBusinessService)
+        public EnquiriesController(IEnquiriesBusinessService enquiriesBusinessService)
         {
             _enquiriesBusinessService = enquiriesBusinessService;
         }

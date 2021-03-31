@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CountriesEnquiryApp.BAL.Interfaces
 {
-    interface IEnquiriesBusinessService
+    public interface IEnquiriesBusinessService
     {
         Task<Response> EnquireCountries(string name);
     }

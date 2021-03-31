@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CountriesEnquiryApp.Common.Interfaces
 {
-    interface IContextAccessor
+    public interface IContextAccessor
     {
         string BrowserName { get; }
 

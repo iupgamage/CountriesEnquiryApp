@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CountriesEnquiryApp.DAL.Interfaces
 {
-    interface IEnquiriesDataService
+    public interface IEnquiriesDataService
     {
         Task<List<Country>> GetCountriesByNameAsync(string name);
 

@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CountriesEnquiryApp.DAL", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CountriesEnquiryApp.Common", "CountriesEnquiryApp.Common\CountriesEnquiryApp.Common.csproj", "{8A0C4CD6-4FE1-437A-A105-F8C7EE971242}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountriesEnquiryApp.Messaging", "CountriesEnquiryApp.Messaging\CountriesEnquiryApp.Messaging.csproj", "{366FF236-434B-4BF5-B1BC-923E88F6AC64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CountriesEnquiryApp.Messaging", "CountriesEnquiryApp.Messaging\CountriesEnquiryApp.Messaging.csproj", "{366FF236-434B-4BF5-B1BC-923E88F6AC64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountriesEnquiryApp.Tests", "CountriesEnquiryApp.Tests\CountriesEnquiryApp.Tests.csproj", "{92AF330C-43F9-4DBC-9BF1-755BDD033B59}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{366FF236-434B-4BF5-B1BC-923E88F6AC64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{366FF236-434B-4BF5-B1BC-923E88F6AC64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{366FF236-434B-4BF5-B1BC-923E88F6AC64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92AF330C-43F9-4DBC-9BF1-755BDD033B59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92AF330C-43F9-4DBC-9BF1-755BDD033B59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92AF330C-43F9-4DBC-9BF1-755BDD033B59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92AF330C-43F9-4DBC-9BF1-755BDD033B59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,11 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CountriesEnquiryApp.BAL.Interfaces;
 using CountriesEnquiryApp.BAL.Services;
 using CountriesEnquiryApp.Common.Enums;
+using CountriesEnquiryApp.Common.Interfaces;
 using CountriesEnquiryApp.Common.Mapper;
 using CountriesEnquiryApp.Common.Services;
+using CountriesEnquiryApp.DAL.Interfaces;
 using CountriesEnquiryApp.DAL.Services;
+using CountriesEnquiryApp.Messaging.Interfaces;
 using CountriesEnquiryApp.Messaging.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -41,13 +45,13 @@ namespace CountriesEnquiryApp.API
 
             services.AddAutoMapper(typeof(AutoMapping));
 
-            services.AddScoped<EnquiriesBusinessService, EnquiriesBusinessService>();
+            services.AddScoped<IEnquiriesBusinessService, EnquiriesBusinessService>();
 
-            services.AddScoped<EnquiriesDataService, EnquiriesDataService>();
+            services.AddScoped<IEnquiriesDataService, EnquiriesDataService>();
 
-            services.AddScoped<ContextAccessor, ContextAccessor>();
+            services.AddScoped<IContextAccessor, ContextAccessor>();
 
-            services.AddSingleton<ServiceBusMessageSender, ServiceBusMessageSender>();
+            services.AddSingleton<IServiceBusMessageSender, ServiceBusMessageSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
