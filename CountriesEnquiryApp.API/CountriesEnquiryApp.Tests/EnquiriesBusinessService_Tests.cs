@@ -25,22 +25,23 @@ namespace CountriesEnquiryApp.Tests
         IEnquiriesDataService enquiriesDataService;
         IContextAccessor contextAccessor;
         IServiceBusMessageSender serviceBusMessageSender;
-        IMapper mapper; 
-        string browserName = "My browser"; 
-        string timestamp = "My timestamp"; 
+        IMapper mapper;
 
         private void SetupMocks()
         {
-            //Create moq objects
+            #region Create moq objects
+
             var enquiriesDataServiceMoq = new Mock<IEnquiriesDataService>();
 
             var contextAccessorMoq = new Mock<IContextAccessor>();
 
             var serviceBusMessageSenderMoq = new Mock<IServiceBusMessageSender>();
 
-            //Setup the returnables
+            #endregion
 
-            var countryList = new List<Country> {
+            #region Setup the returnables
+
+            var countryListByName = new List<Country> {
                 new Country {
                     Code="LK",
                     RegionalBlocs=new List<RegionalBloc> {
@@ -57,45 +58,54 @@ namespace CountriesEnquiryApp.Tests
 
             enquiriesDataServiceMoq
                 .Setup(x => x.GetCountriesByNameAsync(It.IsAny<string>()))
-                .Returns(Task.FromResult(countryList));
+                .Returns(Task.FromResult(countryListByName));
 
-            var countryNameList = new List<CountryName> {
-                new CountryName{
-                    Name="Afghanistan"
+            var countryListByRegion = new List<Country> {
+                new Country{
+                    Translations=new Translations{ NL="Afghanistan"}
                 },
-                new CountryName{
-                    Name="Bangladesh"
+                new Country{
+                    Translations=new Translations{ NL="Bangladesh"}
                 },
-                new CountryName{
-                    Name="Bhutan"
+                new Country{
+                    Translations=new Translations{ NL="Bhutan"}
                 },
-                new CountryName{
-                    Name="India"
+                new Country{
+                    Translations=new Translations{ NL="India"}
                 },
-                new CountryName{
-                    Name="Maldives"
+                new Country{
+                    Translations=new Translations{ NL="Maldiven"}
                 },
-                new CountryName{
-                    Name="Nepal"
+                new Country{
+                    Translations=new Translations{ NL="Nepal"}
                 },
-                new CountryName{
-                    Name="Pakistan"
+                new Country{
+                    Translations=new Translations{ NL="Pakistan"}
                 },
-                new CountryName{
-                    Name="Sri Lanka"
+                new Country{
+                    Translations=new Translations{ NL="Sri Lanka"}
                 }
             };
 
             enquiriesDataServiceMoq
                 .Setup(x => x.GetCountriesByRegionAsync(It.IsAny<string>()))
-                .Returns(Task.FromResult(countryNameList));
+                .Returns(Task.FromResult(countryListByRegion));
+
+            contextAccessorMoq
+                .Setup(x => x.BrowserName).Returns("Chrome");
+
+            contextAccessorMoq
+                .Setup(x => x.TimeStamp).Returns("3/30/2021 10:31:51 PM");
 
             var mockMapper = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new AutoMapping()); 
             });
 
-            //Assign to Object
+            #endregion
+
+            #region Assign to Object
+
             enquiriesDataService = enquiriesDataServiceMoq.Object;
 
             contextAccessor = contextAccessorMoq.Object;
@@ -103,21 +113,23 @@ namespace CountriesEnquiryApp.Tests
             serviceBusMessageSender = serviceBusMessageSenderMoq.Object;
 
             mapper = mockMapper.CreateMapper();
+
+            #endregion
         }
 
         [Fact]
-        public async Task GetCountriesByName_ReturnsListOfCountries111()  
+        public async Task EnquireCountries_ReturnsListOfCountries()   
         {
             //Arrange the resources
             SetupMocks();
-            var a = new EnquiriesBusinessService(enquiriesDataService, contextAccessor, serviceBusMessageSender, mapper);
-            string countryName = "au";
+            var service = new EnquiriesBusinessService(enquiriesDataService, contextAccessor, serviceBusMessageSender, mapper);
+            string countryName = "sri";
 
             //Act on the functionality
-            var response = await a.EnquireCountries(countryName);
+            var response = await service.EnquireCountries(countryName);
 
             //Assert the result against the expected
-            Assert.True(response.CountriesEnq.FirstOrDefault().Code == "LK"); 
+            Assert.True(response.Count() > 0);
         }
     }
 }

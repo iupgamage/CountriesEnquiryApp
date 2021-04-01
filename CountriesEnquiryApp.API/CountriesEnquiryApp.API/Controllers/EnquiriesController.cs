@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CountriesEnquiryApp.BAL.Interfaces;
 using CountriesEnquiryApp.BAL.Services;
+using CountriesEnquiryApp.Common.Helpers;
 using CountriesEnquiryApp.Common.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -29,9 +30,13 @@ namespace CountriesEnquiryApp.API.Controllers
                 var response = await _enquiriesBusinessService.EnquireCountries(enquiry.Name);
                 return Ok(response);
             }
+            catch (CountryNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
             catch (Exception ex)
             {
-                throw;
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
     }

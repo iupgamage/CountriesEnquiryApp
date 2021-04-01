@@ -33,20 +33,21 @@ namespace CountriesEnquiryApp.BAL.Services
             _timestamp = _contextAccessor.TimeStamp;
         }
 
-        public async Task<Response> EnquireCountries(string name)
+        public async Task<List<CountryDto>> EnquireCountries(string name)
         {
-            var response = new Response();
-
+            //Get countries by name
             var countryList = await _enquiriesDataService.GetCountriesByNameAsync(name);
 
+            //map countries to countryDtos
             var countryDtoList = _mapper.Map<List<CountryDto>>(countryList);
 
             foreach (var countryDto in countryDtoList)
             {
                 foreach (var region in countryDto.RegionalBlocs)
                 {
+                    //Get counties in region
                     var countryNameList = await _enquiriesDataService.GetCountriesByRegionAsync(region.Code);
-                    var countryNameArray = countryNameList.Select(c => c.Name).ToArray();
+                    var countryNameArray = countryNameList.Select(c => c.Translations.NL).ToArray();
                     region.Countries = countryNameArray;
                 }
 
@@ -56,9 +57,7 @@ namespace CountriesEnquiryApp.BAL.Services
                 await _serviceBusMessageSender.SendMessageAsync(countryDto);
             }
 
-            response.CountriesEnq = countryDtoList;
-
-            return response;
+            return countryDtoList;
         }
     }
 }

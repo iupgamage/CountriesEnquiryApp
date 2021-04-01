@@ -22,6 +22,7 @@ namespace CountriesEnquiryApp.Common.Models
         /// <summary>
         /// Gets or sets RegionalBlocs
         /// </summary>
+        [JsonProperty("regionalBlocs")]
         public List<RegionalBloc> RegionalBlocs { get; set; }
     }
 }

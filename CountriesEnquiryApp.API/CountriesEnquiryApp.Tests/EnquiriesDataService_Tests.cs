@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
+using System.Linq;
 
 namespace CountriesEnquiryApp.Tests
 {
@@ -21,11 +22,28 @@ namespace CountriesEnquiryApp.Tests
 
         private void SetupMocks()
         {
-            //Create moq objects
+            #region Create moq objects
 
             var httpClientFactoryMoq = new Mock<IHttpClientFactory>();
 
-            //Setup the returnables
+            #endregion
+
+            #region Setup the returnables
+
+            var countryListByName = new List<Country> {
+                new Country {
+                    Code="LK",
+                    RegionalBlocs=new List<RegionalBloc> {
+                       new RegionalBloc{
+                           Code="SAARC",
+                           Name="South Asian Association for Regional Cooperation"
+                       }
+                    },
+                    Translations=new Translations {
+                        NL="Sri Lanka"
+                    }
+                }
+            };
 
             var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
             mockHttpMessageHandler.Protected()
@@ -34,30 +52,34 @@ namespace CountriesEnquiryApp.Tests
                 {
                     StatusCode = HttpStatusCode.OK,
                     //Content = new StringContent("{'name':thecodebuzz,'city':'USA'}"),
-                    Content = new StringContent(JsonConvert.SerializeObject(new List<Country>() { new Country() })),
+                    Content = new StringContent(JsonConvert.SerializeObject(countryListByName)),
                 });
 
             var client = new HttpClient(mockHttpMessageHandler.Object);
             httpClientFactoryMoq.Setup(_ => _.CreateClient(It.IsAny<string>())).Returns(client);
 
-            //Assign to Object
+            #endregion
+
+            #region Assign to Object
 
             httpClientFactory = httpClientFactoryMoq.Object;
+
+            #endregion
         }
 
         [Fact]
-        public async Task GetCountriesByName_ReturnsListOfCountries()
+        public async Task GetCountriesByNameAsync_ReturnsListOfCountries() 
         {
             //Arrange the resources
             SetupMocks();
-            var a = new EnquiriesDataService(httpClientFactory);
-            string countryName = "au";
+            var service = new EnquiriesDataService(httpClientFactory);
+            string countryName = "sri";
 
             //Act on the functionality
-            List<Country> countries = await a.GetCountriesByNameAsync(countryName);
+            List<Country> countries = await service.GetCountriesByNameAsync(countryName);
 
             //Assert the result against the expected
-            Assert.True(countries.Count == 1);
+            Assert.True(countries.Count() > 0);
         }
     }
 }

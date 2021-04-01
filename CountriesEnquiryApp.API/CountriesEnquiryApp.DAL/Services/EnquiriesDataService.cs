@@ -1,4 +1,5 @@
 ﻿using CountriesEnquiryApp.Common.Constants;
+using CountriesEnquiryApp.Common.Helpers;
 using CountriesEnquiryApp.Common.Models;
 using CountriesEnquiryApp.DAL.Interfaces;
 using Newtonsoft.Json;
@@ -35,16 +36,14 @@ namespace CountriesEnquiryApp.DAL.Services
                 var countries = JsonConvert.DeserializeObject<List<Country>>(responseString);
                 return countries;
             }
-            else
-            {
-                throw new Exception();
-            }
+
+            throw new CountryNotFoundException("name", name);
         }
 
-        public async Task<List<CountryName>> GetCountriesByRegionAsync(string regionalBlocCode)
+        public async Task<List<Country>> GetCountriesByRegionAsync(string regionalBlocCode)
         {
             var request = new HttpRequestMessage(HttpMethod.Get,
-            $"{Constants.RestCountriesBaseURL}/regionalbloc/{regionalBlocCode}?fields=name");
+            $"{Constants.RestCountriesBaseURL}/regionalbloc/{regionalBlocCode}?fields=translations");
 
             var client = _clientFactory.CreateClient();
 
@@ -53,13 +52,11 @@ namespace CountriesEnquiryApp.DAL.Services
             if (response.IsSuccessStatusCode)
             {
                 var responseString = await response.Content.ReadAsStringAsync();
-                var countriesByRegion = JsonConvert.DeserializeObject<List<CountryName>>(responseString);
+                var countriesByRegion = JsonConvert.DeserializeObject<List<Country>>(responseString); 
                 return countriesByRegion;
             }
-            else
-            {
-                throw new Exception();
-            }
+
+            throw new CountryNotFoundException("regionalBlocCode", regionalBlocCode);
         }
     }
 }

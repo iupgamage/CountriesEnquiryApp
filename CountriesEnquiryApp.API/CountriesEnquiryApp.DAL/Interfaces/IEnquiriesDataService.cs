@@ -10,6 +10,6 @@ namespace CountriesEnquiryApp.DAL.Interfaces
     {
         Task<List<Country>> GetCountriesByNameAsync(string name);
 
-        Task<List<CountryName>> GetCountriesByRegionAsync(string regionalBlocCode);   
+        Task<List<Country>> GetCountriesByRegionAsync(string regionalBlocCode);   
     }
 }
