@@ -18,10 +18,5 @@ namespace CountriesEnquiryApp.Common.Models
         /// </summary>
         [JsonProperty("acronym")]
         public string Code { get; set; }
-
-        ///// <summary>
-        ///// Gets or sets countries of the regional bloc
-        ///// </summary>
-        //public string[] Countries { get; set; }
     }
 }

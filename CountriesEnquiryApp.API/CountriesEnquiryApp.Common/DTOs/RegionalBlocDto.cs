@@ -7,7 +7,7 @@ namespace CountriesEnquiryApp.Common.DTOs
     public class RegionalBlocDto
     {
         /// <summary>
-        /// name of the regionalBloc
+        /// Gets or sets the name of the regionalBloc
         /// </summary>
         public string Name { get; set; }
 

@@ -54,6 +54,7 @@ namespace CountriesEnquiryApp.BAL.Services
                 countryDto.BrowserName = _browserName;
                 countryDto.Timestamp = _timestamp;
 
+                //Send country details to Service bus
                 await _serviceBusMessageSender.SendMessageAsync(countryDto);
             }
 

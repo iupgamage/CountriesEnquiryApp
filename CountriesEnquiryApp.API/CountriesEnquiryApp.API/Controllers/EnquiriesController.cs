@@ -22,6 +22,11 @@ namespace CountriesEnquiryApp.API.Controllers
             _enquiriesBusinessService = enquiriesBusinessService;
         }
 
+        /// <summary>
+        /// Enquire countries by name and send details to service bus
+        /// </summary>
+        /// <param name="enquiry"></param>
+        /// <returns>List<CountryDto></returns>
         [HttpPost("")]
         public async Task<IActionResult> PostEnquiry(Enquiry enquiry)
         {
